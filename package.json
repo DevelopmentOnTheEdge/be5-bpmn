@@ -1,0 +1,78 @@
+{
+  "name": "be5-bpmn",
+  "version": "1.0.0",
+  "main": "src/frontend/scripts/main.js",
+  "scripts": {
+    "ws": "ws -d dist/uncompressed",
+    "start": "webpack-dev-server --host 127.0.0.1 --progress --profile --colors",
+    "build": "webpack --config webpack.production.config.js --progress --profile --colors --env.build",
+    "build-min": "webpack --config webpack.production.config.js --progress --profile --colors --env.build --env.min",
+    "test": "jest",
+    "watch": "npm test -- --watch",
+    "coverage": "npm test -- --coverage",
+    "coveralls": "npm run-script coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  },
+  "dependencies": {
+    "be5-react": "^0.2.138",
+    "beanexplorer-react": "^1.0.31",
+    "react": "15.6.1",
+    "react-dom": "15.6.1"
+  },
+  "devDependencies": {
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-external-helpers": "6.18.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.24.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-runtime": "6.22.0",
+    "coveralls": "2.13.1",
+    "css-loader": "0.26.1",
+    "enzyme": "2.8.2",
+    "extract-text-webpack-plugin": "2.1.2",
+    "file-loader": "0.10.0",
+    "filemanager-webpack-plugin": "^2.0.5",
+    "html-webpack-plugin": "2.26.0",
+    "jest": "20.0.4",
+    "json-server": "0.10.1",
+    "local-web-server": "1.2.7",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "2.0.0",
+    "postcss-loader": "1.2.2",
+    "raw-loader": "^0.5.1",
+    "react-addons-test-utils": "15.5.1",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-test-renderer": "15.6.1",
+    "sass-loader": "6.0.2",
+    "style-loader": "0.13.1",
+    "url-loader": "0.5.7",
+    "webpack": "3.3.0",
+    "webpack-bundle-analyzer": "2.8.2",
+    "webpack-cleanup-plugin": "0.5.1",
+    "webpack-dashboard": "0.4.0",
+    "webpack-dev-server": "2.4.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DevelopmentOnTheEdge/be5-bpmn.git"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|sass|png|jpg)$": "<rootDir>/test/fileTransformer.js"
+    },
+    "roots": [
+      "./test/",
+      "./src/scripts"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "shared",
+      "./src/scripts"
+    ]
+  }
+}

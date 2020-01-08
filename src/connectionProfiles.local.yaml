@@ -1,0 +1,6 @@
+connectionProfiles:
+  profiles:
+    local:
+      connectionUrl: jdbc:postgresql://localhost:5433/bpmn
+      username: bpmn
+      password: bpmn

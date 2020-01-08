@@ -1,0 +1,22 @@
+_workflows_:
+  type: table
+  displayName: Workflows
+  order: '0'
+  primaryKey: dummy
+
+  queries:
+  - '*** Selection view ***':
+      type: 1D_unknown
+      roles: '@AllRoles'
+      code: |-
+          SELECT d.id, d.name
+          FROM d camunda.act_re_deployment
+
+  - All records:
+      type: 1D_unknown
+      roles: '@AllRoles'
+      code: |-
+          SELECT *
+          FROM camunda.act_re_deployment
+
+          
