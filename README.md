@@ -1,22 +1,52 @@
+Это приложение, которое позволяет использовать диаграммы и задачи BMPN (Business Process Modeling Notation).
 
-#### install
-для фронтенда на машине должен быть node >= 6, устанавливается nodejs
+Для поддержки BMPN используется Camunda (https://camunda.com/).
 
+#### Maven
 для maven нужно настроить nexus https://sites.google.com/a/developmentontheedge.com/wiki/home/sistemnoe-administrirovanie/maven-repozitorij-nexus
 нужна только первая часть - до "mvn deploy"
 
-дальше из приложения 
--- вызвать npm install - будет скачано 100+ мб
--- mvn install -U -Dmaven.artifact.threads=1
- 
-
 #### Database
-- config connection profile in file: [src/connectionProfiles.local.yaml](https://github.com/QProgS/testBe5app/blob/master/src/connectionProfiles.local.yaml) 
-- create file src/profile.local with name of connection, for example: "test_local"
-- create database
+состоит из 2 схем
+- camunda - таблицы Camunda
+- public - таблицы be5
 
+Чтобы создать базу данных:
+1) в PgAdmin создайте пользователя, с правами создавать базы данных
+2) создайте базу данных
+3) config connection profile in file: [src/connectionProfiles.local.yaml](https://github.com/QProgS/testBe5app/blob/master/src/connectionProfiles.local.yaml) 
+4) create file src/profile.local with name of connection, for example: "test_local"
+5) создайте таблицы Camunda
+```sh
+mvn be5:data -DBE5_SCRIPT=camunda_db
+```
+6) создайте таблицы be5 и приложения
 ```sh
 mvn be5:create-db
+```
+
+#### Frontend
+для фронтенда на машине должен быть node >= 6, устанавливается nodejs
+
+Фронтенд собирается в src/main/webapp/
+
+```sh
+// установить зависимости
+npm install
+
+// Режим разработки - запускается node сервер на порту 8888
+npm start
+
+//На своей машине быстрее собрать незжатый 
+npm run build
+
+//На сервере собирается
+npm run build-min
+```
+
+#### Backend
+```sh
+-- mvn install -U -Dmaven.artifact.threads=1
 ```
 
 Полезные таски из плагина be5 для maven
@@ -30,22 +60,6 @@ mvn be5:data -DBE5_SCRIPT=ftl_script_name
 ```
 
 Подробнее - https://github.com/DevelopmentOnTheEdge/be5/wiki/Maven-plugin
-
-#### Frontend
-Фронтенд собирается в src/main/webapp/
-
-```sh
-//установить зависимости
-npm install
-//Режим разработки
-npm start
-//На своей машине быстрее собрать незжатый 
-npm run build
-//На сервере собирается
-npm run build-min
-```
-
-Можно также взять готовый фронтенд из https://github.com/DevelopmentOnTheEdge/be5-react/tree/master/dist/compressed
 
 #### Run Test Be5 application!
 Просто запустите main метод
