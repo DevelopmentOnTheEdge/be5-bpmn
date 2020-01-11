@@ -1,15 +1,19 @@
 bmpn:
-  projectFileStructure: {}
+  projectFileStructure:
+    groovyQueriesDir: src/main/groovy
+    groovyOperationsDir: src/main/groovy
+    groovyExtendersDir: src/main/groovy
   features: []
   l10n: ru
   modules:
   - core:
       entities: []
   application: 
-  - _workflows_
+  - workflows
   scripts:
   - camunda_db
   - camunda/postgres_engine_7.12.0
   - camunda/postgres_identity_7.12.0
+  - users
   includes:
   - common

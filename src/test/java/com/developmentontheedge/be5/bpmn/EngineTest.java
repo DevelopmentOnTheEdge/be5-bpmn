@@ -52,8 +52,8 @@ public class EngineTest
 //		processEngine.getRepositoryService()
 //			.deleteDeployment("..", true);
 
-//		processEngine.getRepositoryService()
-//			.deleteDeployment(deployment.getId(), true);
+		processEngine.getRepositoryService()
+			.deleteDeployment(deployment.getId(), true);
 	}
 		
 }

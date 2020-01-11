@@ -32,7 +32,7 @@ if (env.min) {
 
 let config = {
   entry: {
-    app: ['babel-polyfill', './src/frontend/scripts/initApp.js'],
+    app: ['babel-polyfill', './src/frontend/scripts/initApp.jsx'],
     manager: ['babel-polyfill', './src/frontend/scripts/manager.jsx']
   },
   output: {

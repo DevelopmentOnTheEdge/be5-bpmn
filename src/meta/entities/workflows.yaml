@@ -1,0 +1,67 @@
+workflows:
+  type: table
+  displayName: Workflows
+  order: '10'
+  primaryKey: ID
+  scheme:
+    columns:
+    - ID:
+        type: KEYTYPE
+        autoIncrement: true
+        primaryKey: true
+    - title:
+        type: VARCHAR(100)
+        canBeNull: true
+    - description:
+        type: VARCHAR(255)
+        canBeNull: true
+    - comment:
+        type: VARCHAR(255)
+        canBeNull: true
+    - camundaId:
+        type: VARCHAR(20)
+    - data:
+        type: TEXT
+    - whoInserted___:
+        type: VARCHAR(100)
+        canBeNull: true
+    - whoModified___:
+        type: VARCHAR(100)
+        canBeNull: true
+    - creationDate___:
+        type: DATETIME
+        canBeNull: true
+    - modificationDate___:
+        type: DATETIME
+        canBeNull: true
+    - isDeleted___:
+        type: ENUM('no','yes')
+        defaultValue: '''no'''
+
+  queries:
+  - '*** Selection view ***':
+      type: 1D_unknown
+      roles: '@AllRoles'
+      code: |-
+          SELECT w.id, w.title
+          FROM w workflows
+
+  - All records:
+      type: 1D
+      roles: '@AllRoles'
+      operations:
+      - Insert
+      code: |-
+          SELECT 
+             w.title AS "Title",
+             w.description AS "Description",
+             w.comment AS "Comment",
+             w.camundaId AS "Camunda deploymentId;<quick visible='false'/>"
+          FROM workflows w
+
+  operations:
+  - Insert:
+      type: Groovy
+      roles: [Administrator, Operator]
+      file: operations.InsertWorkflow.groovy
+          
