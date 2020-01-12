@@ -1,0 +1,25 @@
+processes:
+  type: table
+  displayName: Workflows
+  order: '11'
+  primaryKey: dummy
+
+  queries:
+  - '*** Selection view ***':
+      type: 1D_unknown
+      roles: '@AllRoles'
+      code: |-
+          SELECT w.id, w.title
+          FROM workflows w
+
+  - Complteted:
+      type: 1D
+      roles: '@AllRoles'
+      code: |-
+          SELECT 
+             w.title AS "Title",
+             w.description AS "Description",
+             w.comment AS "Comment",
+             w.camundaId AS "Camunda deploymentId;<quick visible='false'/>"
+          FROM workflows w
+         

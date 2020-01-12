@@ -4,6 +4,7 @@ import com.developmentontheedge.beans.DynamicPropertySet
 
 import com.developmentontheedge.be5.bpmn.BpmnService
 import com.developmentontheedge.be5.databasemodel.util.DpsUtils
+import com.developmentontheedge.be5.operation.OperationResult
 import com.developmentontheedge.be5.server.operations.support.GOperationSupport
 import com.developmentontheedge.be5.util.Utils
 
@@ -11,6 +12,9 @@ import javax.inject.Inject
 
 import org.camunda.bpm.engine.runtime.ProcessInstance
 
+import groovy.transform.TypeChecked
+
+@TypeChecked
 class WorkflowStart extends GOperationSupport
 {
 	@Inject
@@ -29,14 +33,22 @@ class WorkflowStart extends GOperationSupport
     {
 		String[] deployId = db.stringArray("SELECT camundaId FROM workflows WHERE id=?", context.records[0]);
 
-System.out.println("id=" + deployId[0]);
-
-		ProcessInstance pi = bpmnService.startProcess(deployId[0], 
+		try
+		{
+			String processId = bpmnService.startProcess(deployId[0], 
 				DpsUtils.toLinkedHashMap((DynamicPropertySet)params) );
 
-System.out.println("process instance id=" + pi.getId());
+			setResult(OperationResult.finished("Workflow started, process instance id=" + processId))
+		}
+		catch(Throwable t)
+		{
+			String msg = ("Workflow error, deployId =" + deployId[0] + ", error: " + t.getMessage())
+			setResult(OperationResult.error(msg))
 			
-		setResult(OperationResult.finished("Workflow started, process instance id=" + pi.getProcessInstanceId()))
+			System.err.println(msg)
+			t.printStackTrace(System.err)
+		}
+
     }
 	
 }

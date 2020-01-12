@@ -70,6 +70,7 @@ workflows:
       type: Groovy
       file: operations.WorkflowDelete.groovy
   - Start:
+      records: 1
       roles: [Administrator, Operator]
       type: Groovy
       file: operations.WorkflowStart.groovy
