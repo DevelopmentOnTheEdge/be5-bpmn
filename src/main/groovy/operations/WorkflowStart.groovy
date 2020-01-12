@@ -23,7 +23,6 @@ class WorkflowStart extends GOperationSupport
 	@Override
     Object getParameters(Map<String, Object> presetValues) throws Exception
     {
-        params.add("var1 ", "Var 1") { CAN_BE_NULL = true }
 		
         return DpsUtils.setValues(params, presetValues)
     }
