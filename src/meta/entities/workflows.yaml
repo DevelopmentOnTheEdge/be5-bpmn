@@ -34,9 +34,6 @@ workflows:
     - modificationDate___:
         type: DATETIME
         canBeNull: true
-    - isDeleted___:
-        type: ENUM('no','yes')
-        defaultValue: '''no'''
 
   queries:
   - '*** Selection view ***':
@@ -44,13 +41,14 @@ workflows:
       roles: '@AllRoles'
       code: |-
           SELECT w.id, w.title
-          FROM w workflows
+          FROM workflows w
 
   - All records:
       type: 1D
       roles: '@AllRoles'
       operations:
       - Insert
+      - Delete
       code: |-
           SELECT 
              w.title AS "Title",
@@ -61,7 +59,13 @@ workflows:
 
   operations:
   - Insert:
-      type: Groovy
       roles: [Administrator, Operator]
+      type: Groovy
       file: operations.InsertWorkflow.groovy
-          
+  - Delete:
+      records: 2
+      roles: [Administrator, Operator]
+      layout: '{"type":"modalForm"}'
+      type: Groovy
+      file: operations.DeleteWorkflow.groovy
+         

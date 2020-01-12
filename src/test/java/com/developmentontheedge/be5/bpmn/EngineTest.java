@@ -49,8 +49,7 @@ public class EngineTest
 	@Test
 	public void _9_removeWorkflow()
 	{
-//		processEngine.getRepositoryService()
-//			.deleteDeployment("..", true);
+//		processEngine.getRepositoryService().deleteDeployment("601", true);
 
 		processEngine.getRepositoryService()
 			.deleteDeployment(deployment.getId(), true);

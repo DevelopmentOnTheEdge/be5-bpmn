@@ -18,15 +18,7 @@ public class CamundaBmpnServiceImpl implements BpmnService
 				.createProcessEngineConfigurationFromInputStream(cfg)
 				.setJdbcDriver("org.postgresql.Driver");
 
-System.out.println("###Camunda: " + pec.getJdbcUrl() + ", " + pec.getJdbcDriver());		
-		
 		processEngine = pec.buildProcessEngine();
-		
-/*
-		processEngine = ProcessEngineConfiguration
-				.createProcessEngineConfigurationFromInputStream(cfg)
-				.buildProcessEngine();
-*/				
 	}
 	
 	/**
@@ -43,4 +35,13 @@ System.out.println("###Camunda: " + pec.getJdbcUrl() + ", " + pec.getJdbcDriver(
 		return deployment.getId();
 	}
 
+	/**
+	 * Delete BPMN model with the specified id and all related resources
+	 * (cascade deletion to process instances, history process instances and jobs).
+	 */
+	public void deleteModel(String id)
+	{
+		processEngine.getRepositoryService()
+			.deleteDeployment(id, true);
+	}
 }

@@ -9,5 +9,8 @@ public interface BpmnService
 	 */
 	public String deployModel(String name, String model);
 	
-
+	/**
+	 * Delete BPMN model with the specified id and all related resources.
+	 */
+	public void deleteModel(String id);
 }
