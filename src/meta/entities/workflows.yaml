@@ -49,6 +49,7 @@ workflows:
       operations:
       - Insert
       - Delete
+      - Start
       code: |-
           SELECT 
              w.title AS "Title",
@@ -61,11 +62,15 @@ workflows:
   - Insert:
       roles: [Administrator, Operator]
       type: Groovy
-      file: operations.InsertWorkflow.groovy
+      file: operations.WorkflowInsert.groovy
   - Delete:
       records: 2
       roles: [Administrator, Operator]
       layout: '{"type":"modalForm"}'
       type: Groovy
-      file: operations.DeleteWorkflow.groovy
+      file: operations.WorkflowDelete.groovy
+  - Start:
+      roles: [Administrator, Operator]
+      type: Groovy
+      file: operations.WorkflowStart.groovy
          

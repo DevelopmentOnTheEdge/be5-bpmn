@@ -2,10 +2,12 @@ package com.developmentontheedge.be5.bpmn;
 
 import java.util.Map;
 import java.util.Hashtable;
+import java.util.List;
 
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.engine.repository.Deployment;
+import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -42,8 +44,20 @@ public class EngineTest
 	    Map<String, Object> variables = new Hashtable<String, Object>();
 
 		// start the process instance
-	    processInstance = processEngine.getRuntimeService()
-	    		.startProcessInstanceByKey("testWorkflowId", variables);
+//	    processInstance = processEngine.getRuntimeService()
+//	    		.startProcessInstanceByKey("testWorkflowId", variables);
+	    
+	    List<ProcessDefinition> definitions = processEngine.getRepositoryService()
+	    		.createProcessDefinitionQuery()
+	    		.deploymentId(deployment.getId())
+	    		.list();
+	    		
+	    System.out.println("!!!Definitions: " + definitions);	    
+
+		ProcessInstance pi = processEngine.getRuntimeService()
+	    		.startProcessInstanceById(definitions.get(0).getId(), variables);
+
+	    System.out.println("!!!Process instance: " + pi);	    
 	}
 	
 	@Test

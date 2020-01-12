@@ -9,7 +9,7 @@ import com.developmentontheedge.be5.operation.TransactionalOperation
 import com.developmentontheedge.be5.server.operations.DeleteOperation
 import com.developmentontheedge.be5.util.Utils
 
-class DeleteWorkflow extends DeleteOperation implements TransactionalOperation
+class WorkflowDelete extends DeleteOperation implements TransactionalOperation
 {
 	@Inject
 	BpmnService bpmnService

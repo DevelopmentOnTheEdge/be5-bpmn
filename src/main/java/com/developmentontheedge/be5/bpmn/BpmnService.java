@@ -1,5 +1,7 @@
 package com.developmentontheedge.be5.bpmn;
 
+import java.util.Map;
+
 public interface BpmnService
 {
 	/**
@@ -13,4 +15,11 @@ public interface BpmnService
 	 * Delete BPMN model with the specified id and all related resources.
 	 */
 	public void deleteModel(String id);
+	
+	/**
+	 * Starts BPMN model with the specified id and variables.
+	 * 
+	 * @return id for started process instance. 
+	 */
+	public String startProcess(String id, Map<String,Object> variables);
 }

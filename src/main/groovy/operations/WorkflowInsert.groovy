@@ -9,7 +9,7 @@ import groovy.transform.TypeChecked
 
 import javax.inject.Inject
 
-class InsertWorkflow extends GOperationSupport
+class WorkflowInsert extends GOperationSupport
 {
 	@Inject
 	BpmnService bpmnService
