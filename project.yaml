@@ -10,6 +10,7 @@ bmpn:
       entities: []
   application: 
   - workflows
+  - tasks
   scripts:
   - camunda_db
   - camunda/postgres_engine_7.12.0

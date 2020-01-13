@@ -1,6 +1,6 @@
-processes:
+tasks:
   type: table
-  displayName: Workflows
+  displayName: Tasks
   order: '11'
   primaryKey: dummy
 

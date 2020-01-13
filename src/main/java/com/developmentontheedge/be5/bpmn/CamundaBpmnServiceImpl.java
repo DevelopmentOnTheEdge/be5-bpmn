@@ -81,6 +81,22 @@ public class CamundaBpmnServiceImpl implements BpmnService
 	}
 	
 	/**
+	 * @return process definition ID by its deployment ID.
+	 */
+	public String getProcessDefinitionId(String deploymentId)
+	{
+	    ProcessDefinition pd = processEngine.getRepositoryService()
+	    		.createProcessDefinitionQuery()
+	    		.deploymentId(deploymentId)
+	    		.singleResult();
+	    
+	    if( pd == null )
+	    	return null;
+	    
+	    return pd.getId();
+	}
+	
+	/**
 	 * Starts BPMN model with the specified id and variables.
 	 * 
 	 * @return id for started process instance. 

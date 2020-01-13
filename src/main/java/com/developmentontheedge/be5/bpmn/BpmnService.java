@@ -26,6 +26,11 @@ public interface BpmnService
 	 * Delete BPMN model with the specified id and all related resources.
 	 */
 	public void deleteModel(String id);
+
+	/**
+	 * @return process definition ID by its deployment ID.
+	 */
+	public String getProcessDefinitionId(String deploymentId);
 	
 	/**
 	 * Starts BPMN model with the specified id and variables.

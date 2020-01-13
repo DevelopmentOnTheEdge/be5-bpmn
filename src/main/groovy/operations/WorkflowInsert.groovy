@@ -5,8 +5,6 @@ import com.developmentontheedge.be5.databasemodel.util.DpsUtils
 import com.developmentontheedge.be5.server.model.Base64File
 import com.developmentontheedge.be5.server.operations.support.GOperationSupport
 
-import groovy.transform.TypeChecked
-
 import javax.inject.Inject
 
 class WorkflowInsert extends GOperationSupport
@@ -31,16 +29,16 @@ class WorkflowInsert extends GOperationSupport
         def file = (Base64File) params.$file
 
 		String model = new String(file.data)
-		String modelId = bpmnService.deployModel((String)params.$title, model)
+		String deploymentId = bpmnService.deployModel((String)params.$title, model)
 		
 	    database.workflows << [
             title       : params.$title,
             description : params.$description,
             comment     : params.$comment,
             data        : model,
-			camundaId   : modelId
+			deploymentId: deploymentId,
+			processDefinitionId: bpmnService.getProcessDefinitionId(deploymentId)
         ]
-            
     }
 	
 }

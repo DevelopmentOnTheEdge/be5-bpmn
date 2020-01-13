@@ -18,8 +18,10 @@ workflows:
     - comment:
         type: VARCHAR(255)
         canBeNull: true
-    - camundaId:
+    - deploymentId:
         type: VARCHAR(20)
+    - processDefinitionId:
+        type: VARCHAR(64)
     - data:
         type: TEXT
     - whoInserted___:
@@ -53,10 +55,36 @@ workflows:
       code: |-
           SELECT 
              w.title AS "Title",
-             w.description AS "Description",
-             w.comment AS "Comment",
-             w.camundaId AS "Camunda deploymentId;<quick visible='false'/>"
+             w.description AS "Description;<quick visible='false'/>",
+             w.deploymentId AS "DeploymentId;<quick visible='false'/>",
+             w.processDefinitionId AS "Process definition Id;<quick visible='false'/>",
+
+             '<sql using="Process definition Id" default="Нет альбомов">
+                SELECT count(*) FROM camunda.act_hi_procinst WHERE state_='ACTIVE' AND proc_def_id_ = ?
+             </sql>' AS "Active",
+            '<link table="workflows" queryName="Processes" using="Process definition Id" columns="processDefinitionId" />' AS ";Active",
+
+             '<sql using="Process definition Id" default="Нет альбомов">
+                SELECT count(*) FROM camunda.act_hi_procinst WHERE state_='COMPLETED' AND proc_def_id_ = ?
+             </sql>' AS "Completed",
+
+             w.comment AS "Comment;<quick visible='false'/>"
+          FROM workflows w      
+
+  - Processes:
+      type: 1D
+      roles: '@AllRoles'
+      code: |-
+          SELECT 
+             w.title AS "Title",
+             w.deploymentId AS "DeploymentId;<quick visible='false'/>",
+             w.processDefinitionId AS "Process definition Id;<quick visible='false'/>",
+             p.start_time_ AS "Start",
+             p.end_time_ AS "End",
+             p.duration_ AS "Duration",
+             p.state_ AS "State"
           FROM workflows w
+          JOIN camunda.act_hi_procinst p ON w.processDefinitionId = p.proc_def_id_ 
 
   operations:
   - Insert:
