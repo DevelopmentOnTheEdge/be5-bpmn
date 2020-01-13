@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1rsj6oq" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.5.0">
+  <bpmn:process id="Process_1tvw9cz" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1im0mme</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1im0mme" sourceRef="StartEvent_1" targetRef="MakeDcision_1" />
+    <bpmn:sequenceFlow id="SequenceFlow_0syyjvm" sourceRef="MakeDcision_1" targetRef="PrintVariables" />
+    <bpmn:serviceTask id="PrintVariables" name="Print variables" camunda:class="com.developmentontheedge.be5.bpmn.tasks.PrintVariablesTask">
+      <bpmn:incoming>SequenceFlow_0syyjvm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_137v14a</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="MakeDcision_1" name="Make decision">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="Decision" type="string" />
+        </camunda:formData>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="decision_in">in</camunda:inputParameter>
+          <camunda:outputParameter name="Decision_out">out</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1im0mme</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0syyjvm</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateThrowEvent id="End">
+      <bpmn:incoming>SequenceFlow_137v14a</bpmn:incoming>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_137v14a" sourceRef="PrintVariables" targetRef="End" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1tvw9cz">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1im0mme_di" bpmnElement="SequenceFlow_1im0mme">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0syyjvm_di" bpmnElement="SequenceFlow_0syyjvm">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="440" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0adjppz_di" bpmnElement="PrintVariables">
+        <dc:Bounds x="440" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1ye2f5i_di" bpmnElement="MakeDcision_1">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_0mrazd1_di" bpmnElement="End">
+        <dc:Bounds x="592" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_137v14a_di" bpmnElement="SequenceFlow_137v14a">
+        <di:waypoint x="540" y="117" />
+        <di:waypoint x="592" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

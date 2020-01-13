@@ -31,7 +31,7 @@ public class BmpnServletConfig extends Be5ServletListener
             install(new WebModule());
             install(new TemplateModule());
 
-            bind(BpmnService.class).to(CamundaBmpnServiceImpl.class).in(Scopes.SINGLETON);
+            bind(BpmnService.class).to(CamundaBpmnServiceImpl.class).in(Scopes.SINGLETON);
         }
     }
 }
