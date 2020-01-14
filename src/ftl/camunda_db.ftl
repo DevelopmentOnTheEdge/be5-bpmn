@@ -1,4 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS camunda AUTHORIZATION bpmn;
+CREATE SCHEMA IF NOT EXISTS camunda;
 
 SET search_path to 'camunda';
 
@@ -6,5 +6,3 @@ SET search_path to 'camunda';
 <#include 'camunda/postgres_identity_7.12.0'/>
 
 SET search_path to 'public';
-
-
