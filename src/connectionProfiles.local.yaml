@@ -8,3 +8,7 @@ connectionProfiles:
       connectionUrl: jdbc:postgresql://localhost:5432/bpmn
       username: bpmn
       password: bpmn
+    dimka:
+      connectionUrl: jdbc:postgresql://localhost:5432/bpmn
+      username: postgres
+      password: sa
