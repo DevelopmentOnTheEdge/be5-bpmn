@@ -30,19 +30,19 @@ class WorkflowStart extends GOperationSupport
     @Override
     void invoke(Object params) throws Exception
     {
-		String[] deployId = db.stringArray("SELECT deploymentId FROM workflows WHERE id=?", context.records[0]);
+		String[] processDefinitionKeys = db.stringArray("SELECT processDefinitionKey FROM workflows WHERE id=?", context.records[0]);
 
 		try
 		{
 			Map<String, Object> variables = params == null ? null : DpsUtils.toLinkedHashMap((DynamicPropertySet)params)
 				
-			String processId = bpmnService.startProcess(deployId[0], variables);
+			String processId = bpmnService.startProcess(processDefinitionKeys[0], variables);
 
 			setResult(OperationResult.finished("Workflow started, process instance id=" + processId))
 		}
 		catch(Throwable t)
 		{
-			String msg = ("Workflow error, deployId =" + deployId[0] + ", error: " + t.getMessage())
+			String msg = ("Workflow error, processDefinitionKey=" + processDefinitionKeys[0] + ", error: " + t.getMessage())
 			setResult(OperationResult.error(msg))
 			
 			System.err.println(msg)

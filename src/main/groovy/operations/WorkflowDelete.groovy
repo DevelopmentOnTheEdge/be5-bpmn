@@ -17,12 +17,12 @@ class WorkflowDelete extends DeleteOperation implements TransactionalOperation
 	@Override
 	void invoke(Object parameters) throws Exception
 	{
-		String[] deployIds = db.stringArray("SELECT camundaId FROM workflows WHERE id IN "
+		String[] processDefinitionKeys = db.stringArray("SELECT processDefinitionKey FROM workflows WHERE id IN "
               + Utils.inClause(context.records.size()), context.records);
 
-		  for(String id in deployIds)
+		  for(String key in processDefinitionKeys)
 		  {
-			  bpmnService.deleteModel(id)
+			  bpmnService.deleteModel(key)
 		  }
  
 		  super.invoke(parameters);

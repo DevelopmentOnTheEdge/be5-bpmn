@@ -11,33 +11,28 @@ public interface BpmnService
 	/**
 	 * Deploys BPMN model.
 	 * 
-	 * @return id for deployed model. 
+	 * @return key for deployed model. 
 	 */
 	public String deployModel(String name, String model);
 	
 	/**
 	 * Deploys BPMN model from the stream.
 	 * 
-	 * @return id for deployed model. 
+	 * @return key for deployed model. 
 	 */
 	public String deployModel(String name, InputStream is);
 
 	/**
 	 * Delete BPMN model with the specified id and all related resources.
 	 */
-	public void deleteModel(String id);
+	public void deleteModel(String key);
 
-	/**
-	 * @return process definition ID by its deployment ID.
-	 */
-	public String getProcessDefinitionId(String deploymentId);
-	
 	/**
 	 * Starts BPMN model with the specified id and variables.
 	 * 
-	 * @return id for started process instance. 
+	 * @return key for started process instance. 
 	 */
-	public String startProcess(String id, Map<String,Object> variables);
+	public String startProcess(String key, Map<String,Object> variables);
 	
 	/**
 	 * @return list of current active tasks.

@@ -29,15 +29,14 @@ class WorkflowInsert extends GOperationSupport
         def file = (Base64File) params.$file
 
 		String model = new String(file.data)
-		String deploymentId = bpmnService.deployModel((String)params.$title, model)
+		String processDefinitionKey = bpmnService.deployModel((String)params.$title, model)
 		
 	    database.workflows << [
             title       : params.$title,
             description : params.$description,
             comment     : params.$comment,
             data        : model,
-			deploymentId: deploymentId,
-			processDefinitionId: bpmnService.getProcessDefinitionId(deploymentId)
+			processDefinitionKey: processDefinitionKey
         ]
     }
 	

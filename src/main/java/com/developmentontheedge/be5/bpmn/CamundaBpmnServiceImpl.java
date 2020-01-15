@@ -1,6 +1,7 @@
 package com.developmentontheedge.be5.bpmn;
 
 import java.io.InputStream;
+import java.io.StringBufferInputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -34,19 +35,11 @@ public class CamundaBpmnServiceImpl implements BpmnService
 	 * Model name should end with ".bpmn".
 	 * The method checks it and adds  ".bpmn" if needed.
 	 *  
-	 * @return id for deployed model. 
+	 * @return key (process definition key) for deployed model. 
 	 */
 	public String deployModel(String name, String model)
 	{
-		if( !name.endsWith(BPMN_SUFFIX) )
-			name += BPMN_SUFFIX;
-				
-		Deployment deployment = processEngine.getRepositoryService()
-			     .createDeployment()
-			     .addString(name, model)
-			     .deploy();			
-		
-		return deployment.getId();
+		return deployModel(name, new StringBufferInputStream(model));
 	}
 
 	/**
@@ -67,49 +60,52 @@ public class CamundaBpmnServiceImpl implements BpmnService
 			     .addInputStream(name,  is)
 			     .deploy();			
 		
-		return deployment.getId();
+	    ProcessDefinition pd = processEngine.getRepositoryService()
+	    		.createProcessDefinitionQuery()
+	    		.deploymentId(deployment.getId())
+	    		.singleResult();
+
+	    return pd.getKey();
 	}
 
 	/**
-	 * Delete BPMN model with the specified id and all related resources
+	 * Delete BPMN model with the specified key (process definition key) and all related resources
 	 * (cascade deletion to process instances, history process instances and jobs).
+	 * 
+	 * If several versions exist, all versions will be deleted.
 	 */
-	public void deleteModel(String id)
+	public void deleteModel(String key)
 	{
-		processEngine.getRepositoryService()
-			.deleteDeployment(id, true);
-	}
-	
-	/**
-	 * @return process definition ID by its deployment ID.
-	 */
-	public String getProcessDefinitionId(String deploymentId)
-	{
-	    ProcessDefinition pd = processEngine.getRepositoryService()
+	    List<ProcessDefinition> pds = processEngine.getRepositoryService()
 	    		.createProcessDefinitionQuery()
-	    		.deploymentId(deploymentId)
-	    		.singleResult();
-	    
-	    if( pd == null )
-	    	return null;
-	    
-	    return pd.getId();
+	    		.processDefinitionKey(key)
+	    		.list();
+
+	    for(ProcessDefinition pd : pds)
+	    {
+	    	processEngine.getRepositoryService()
+				.deleteDeployment(pd.getDeploymentId(), true);
+	    }
 	}
 	
 	/**
-	 * Starts BPMN model with the specified id and variables.
+	 * Starts BPMN model with the specified key (process definition key) and variables.
+	 * 
+	 * If several versions exist, the latest version will be started.
 	 * 
 	 * @return id for started process instance. 
 	 */
-	public String startProcess(String id, Map<String,Object> variables)
+	public String startProcess(String key, Map<String,Object> variables)
 	{
-	    List<ProcessDefinition> definitions = processEngine.getRepositoryService()
+	    ProcessDefinition pd = processEngine.getRepositoryService()
 	    		.createProcessDefinitionQuery()
-	    		.deploymentId(id)
-	    		.list();
+	    		.processDefinitionKey(key)
+	    		.latestVersion()
+	    		.singleResult();
+		
 		
 		ProcessInstance pi = processEngine.getRuntimeService()
-	    		.startProcessInstanceById(definitions.get(0).getId(), variables);
+	    		.startProcessInstanceById(pd.getId(), variables);
 		
 		return pi.getProcessInstanceId();
 	}

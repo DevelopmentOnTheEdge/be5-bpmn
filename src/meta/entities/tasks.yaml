@@ -12,7 +12,7 @@ tasks:
           SELECT w.id, w.title
           FROM workflows w
 
-  - Complteted:
+  - User tasks:
       type: 1D
       roles: '@AllRoles'
       code: |-
