@@ -2,7 +2,7 @@ tasks:
   type: table
   displayName: Tasks
   order: '11'
-  primaryKey: dummy
+  primaryKey: ID
 
   queries:
   - '*** Selection view ***':
@@ -13,13 +13,32 @@ tasks:
           FROM workflows w
 
   - User tasks:
-      type: 1D
+      type: 1D_UNKNOWN
       roles: '@AllRoles'
+      operations:
+      - Complete
       code: |-
           SELECT 
-             w.title AS "Title",
-             w.description AS "Description",
-             w.comment AS "Comment",
-             w.camundaId AS "Camunda deploymentId;<quick visible='false'/>"
-          FROM workflows w
+             t.id_ AS "ID",
+             t.execution_id_ AS "___execution_id_",
+             w.title AS "Workflow",
+             t.name_ AS "Title",
+             t.assignee_ AS "Assignee",
+             t.due_date_ AS "Due date",
+             t.follow_up_date_ AS "Follow up date",
+             t.start_time_ AS "Start",
+             t.start_time_ AS "Start",
+             t.end_time_ AS "End",
+             t.duration_ AS "Duration",
+             '<sql using="___execution_id_">
+                 SELECT v.name_ || '=' || v.text_ FROM camunda.act_hi_varinst v WHERE v.execution_id_=?
+             </sql>' AS "Variables"
+          FROM camunda.act_hi_taskinst t
+          LEFT JOIN workflows w ON w.processDefinitionKey = t.proc_def_key_ 
+         
+  operations:
+  - Complete:
+      roles: [Administrator, Operator]
+      type: Groovy
+      file: operations.TaskComplete.groovy
          
