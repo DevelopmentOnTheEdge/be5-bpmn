@@ -6,9 +6,11 @@
 
   <bean id="processEngineConfiguration" class="org.camunda.bpm.engine.impl.cfg.StandaloneProcessEngineConfiguration">
     
-    <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/bpmn?currentSchema=camunda" />
+    <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/bpmn" />
+    <!--property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/bpmn?currentSchema=camunda" /-->
     <property name="jdbcUsername" value="bpmn" />
     <property name="jdbcPassword" value="bpmn" />
+    <property name="history" value="full" />
     
   </bean>
 
