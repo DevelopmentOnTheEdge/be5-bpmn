@@ -57,12 +57,12 @@ workflows:
 
             'table/workflows/Processes/processDefinitionKey=' || w.processDefinitionKey || '/state=ACTIVE' AS "___activeUrl",
              '<sql using="Process definition key">
-                SELECT count(*) AS "Count" FROM camunda.act_hi_procinst WHERE state_='ACTIVE' AND proc_def_key_ = ?
+                SELECT count(*) AS "Count" FROM ${CAMUNDA_SCHEMA}.act_hi_procinst WHERE state_='ACTIVE' AND proc_def_key_ = ?
              </sql>' AS "Active;<link url='___activeUrl'/>",
 
             'table/workflows/Processes/processDefinitionKey=' || w.processDefinitionKey || '/state=COMLETED' AS "___completedUrl",
              '<sql using="Process definition key">
-                SELECT count(*) FROM camunda.act_hi_procinst WHERE state_='COMPLETED' AND proc_def_key_ = ?
+                SELECT count(*) FROM ${CAMUNDA_SCHEMA}.act_hi_procinst WHERE state_='COMPLETED' AND proc_def_key_ = ?
              </sql>' AS "Completed;<link url='___completedUrl'/>",
             
              w.comment AS "Comment;<quick visible='false'/>"
@@ -80,7 +80,7 @@ workflows:
              p.duration_ AS "Duration",
              p.state_ AS "State"
           FROM workflows w
-          JOIN camunda.act_hi_procinst p ON w.processDefinitionKey = p.proc_def_key_ 
+          JOIN ${CAMUNDA_SCHEMA}.act_hi_procinst p ON w.processDefinitionKey = p.proc_def_key_ 
           -- <if parameter="state"> AND p.state_ = '<parameter:state/>' </if>
 
   operations:
