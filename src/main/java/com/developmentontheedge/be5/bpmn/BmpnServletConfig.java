@@ -18,7 +18,7 @@ public class BmpnServletConfig extends Be5ServletListener
     @Override
     protected Injector getInjector()
     {
-        return Guice.createInjector(getStage(), new BmpnAppModule());
+        return  Guice.createInjector(getStage(), new BmpnAppModule());
     }
 
     private static class BmpnAppModule extends AbstractModule
@@ -32,6 +32,7 @@ public class BmpnServletConfig extends Be5ServletListener
             install(new TemplateModule());
 
             bind(BpmnService.class).to(CamundaBpmnServiceImpl.class).in(Scopes.SINGLETON);
+            requestStaticInjection(Be5Facade.class);
         }
     }
 }
