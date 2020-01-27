@@ -31,9 +31,9 @@ tasks:
              t.end_time_ AS "End",
              t.duration_ AS "Duration",
              '<sql using="___execution_id_">
-                 SELECT v.name_ || '=' || v.text_ FROM camunda.act_hi_varinst v WHERE v.execution_id_=?
+                 SELECT v.name_ || '=' || v.text_ FROM ${CAMUNDA_SCHEMA}.act_hi_varinst v WHERE v.execution_id_=?
              </sql>' AS "Variables"
-          FROM camunda.act_hi_taskinst t
+          FROM ${CAMUNDA_SCHEMA}.act_hi_taskinst t
           LEFT JOIN workflows w ON w.processDefinitionKey = t.proc_def_key_ 
          
   operations:

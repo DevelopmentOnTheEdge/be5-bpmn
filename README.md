@@ -36,6 +36,8 @@ npm install
 
 // Режим разработки - запускается node сервер на порту 8888
 npm start
+// Можно запустить так для того чтобы слушать на произвольном IP адресе а не на localhost
+node node_modules/.bin/webpack-dev-server --host 192.168.220.191 --progress --profile --colors
 
 //На своей машине быстрее собрать незжатый 
 npm run build
