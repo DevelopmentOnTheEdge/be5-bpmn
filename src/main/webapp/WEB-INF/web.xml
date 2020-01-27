@@ -8,11 +8,15 @@
  <display-name>be5-BMPN</display-name>
 
  <session-config>
-  <session-timeout>1440</session-timeout>
+  <session-timeout>43200</session-timeout>
  </session-config>
 
  <listener>
   <listener-class>com.developmentontheedge.be5.bpmn.BmpnServletConfig</listener-class>
+ </listener>
+
+ <listener>
+  <listener-class>com.developmentontheedge.be5.server.authentication.AuthenticationPropagationListener</listener-class>
  </listener>
 
  <filter>

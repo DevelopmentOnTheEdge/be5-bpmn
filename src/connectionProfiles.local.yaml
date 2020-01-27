@@ -10,6 +10,12 @@ connectionProfiles:
       password: bpmn
       properties:
       - CAMUNDA_SCHEMA: 'public'
+    fedor:
+      connectionUrl: jdbc:postgresql://localhost:5432/bpmn
+      username: bpmn
+      password: bpmn
+      properties:
+      - CAMUNDA_SCHEMA: 'camunda'
     dimka:
       connectionUrl: jdbc:postgresql://localhost:5432/bpmn
       username: postgres

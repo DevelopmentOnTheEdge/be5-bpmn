@@ -2,8 +2,6 @@ package com.developmentontheedge.be5.bpmn;
 
 import com.developmentontheedge.be5.modules.core.CoreModule;
 import com.developmentontheedge.be5.modules.core.CoreServletModule;
-import com.developmentontheedge.be5.modules.core.services.RoleServiceImpl;
-import com.developmentontheedge.be5.server.authentication.RoleService;
 import com.developmentontheedge.be5.server.servlet.Be5ServletListener;
 import com.developmentontheedge.be5.server.servlet.TemplateModule;
 import com.developmentontheedge.be5.web.WebModule;
