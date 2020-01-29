@@ -32,6 +32,11 @@ public class Be5Facade
         return operationExecutor.create(operationInfo, null, operationParams);
 	}
 	
+	public static Object getParameters(Operation operation, Map<String, Object> presetValues)
+	{
+		return operationExecutor.generate(operation, presetValues);
+	}
+
 	public static Object execute(Operation operation, Map<String, Object> presetValues)
 	{
 		return operationExecutor.execute(operation, presetValues);

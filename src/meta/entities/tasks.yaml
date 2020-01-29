@@ -17,6 +17,7 @@ tasks:
       roles: '@AllRoles'
       operations:
       - Complete
+      - Be5UserTask
       code: |-
           SELECT 
              t.id_ AS "ID",
@@ -27,12 +28,13 @@ tasks:
              t.due_date_ AS "Due date",
              t.follow_up_date_ AS "Follow up date",
              t.start_time_ AS "Start",
-             t.start_time_ AS "Start",
              t.end_time_ AS "End",
              t.duration_ AS "Duration",
              '<sql using="___execution_id_">
                  SELECT v.name_ || '=' || v.text_ FROM ${CAMUNDA_SCHEMA}.act_hi_varinst v WHERE v.execution_id_=?
-             </sql>' AS "Variables"
+             </sql>' AS "Variables",
+             'form/tasks/User%20tasks/Be5UserTask/bpmnTaskId=' || t.id_ || '/executionId=' || t.execution_id_ AS "___executeURL",
+             CASE WHEN t.duration_ IS NULL THEN 'Execute' ELSE NULL END AS "Execute;<link url='___executeURL'/>"
           FROM ${CAMUNDA_SCHEMA}.act_hi_taskinst t
           LEFT JOIN workflows w ON w.processDefinitionKey = t.proc_def_key_ 
          
@@ -41,4 +43,8 @@ tasks:
       roles: [Administrator, Operator]
       type: Groovy
       file: operations.TaskComplete.groovy
+  - Be5UserTask:
+      roles: [Administrator, Operator]
+      type: Groovy
+      file: operations.Be5OperationUserTask.groovy
          

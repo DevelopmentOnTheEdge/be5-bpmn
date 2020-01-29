@@ -20,7 +20,6 @@ class TestServiceOperation extends GOperationSupport
 	@Override
     Object getParameters(Map<String, Object> presetValues) throws Exception
     {
-		
         return null;
     }
 

@@ -103,4 +103,8 @@ workflows:
       roles: [Administrator, Operator]
       type: Groovy
       file: operations.TestServiceOperation.groovy
+  - TestUserTaskOperation:
+      roles: [Administrator, Operator]
+      type: Groovy
+      file: operations.TestUserTaskOperation.groovy
          
