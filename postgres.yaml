@@ -1,0 +1,17 @@
+version: "3"
+services:
+  postgres-be:
+    image: postgres:latest
+    container_name: postgres-bpmn
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    environment:
+         - POSTGRES_PASSWORD=bpmn
+         - POSTGRES_USER=bpmn
+         - POSTGRES_DB=bpmn
+    restart: unless-stopped
+    volumes:
+      - ./empty.sql:/docker-entrypoint-initdb.d/init.sql
+      - ~/postgres-bpmn:/var/lib/postgresql/data

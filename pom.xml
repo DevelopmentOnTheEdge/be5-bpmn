@@ -46,6 +46,24 @@
 
   </dependencies>
 
+ <build>
+    <plugins>
+        <plugin>
+            <groupId>com.developmentontheedge.be5</groupId>
+            <artifactId>be5-maven-plugin</artifactId>
+            <version>0.1.1-SNAPSHOT</version>
+            <!-- duplicate for (ModuleLoader2.class).getClassLoader().getResources(PROJECT_FILE_NAME); -->
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>[42.0.0,)</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+    </plugins>
+ </build>
+
   <repositories>
     <repository>
       <id>camunda-bpm-nexus</id>

@@ -1,5 +1,11 @@
 connectionProfiles:
   profiles:
+    docker:
+      connectionUrl: jdbc:postgresql://localhost:5432/bpmn
+      username: bpmn
+      password: bpmn
+      properties:
+      - CAMUNDA_SCHEMA: 'camunda'
     local:
       connectionUrl: jdbc:postgresql://localhost:5433/bpmn
       username: bpmn
